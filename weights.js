@@ -57,10 +57,10 @@ module.exports = {
   "p2_evasion": -10,
 
   "p1_hp": 1024,
-  "p2_hp": -1024,
+  "p2_hp": -2048,
 
   "p1_alive": 512, //was 1024 //TODO: incremental p1_alive? so hp when a pokemon is at full health is worth more than when a pokemon is at partial health
-  "p2_alive": -512, //was -1024
+  "p2_alive": -1024, //was -1024
 
   "p1_fast_alive": 512,
   "p2_fast_alive": -512,
@@ -86,7 +86,7 @@ module.exports = {
 
   // Other features
   "items": 4,
-  "faster": 50,
-  "has_supereffective": 200,
+  "faster": 100,
+  "has_supereffective": 500,
   "has_stab": 100
 }

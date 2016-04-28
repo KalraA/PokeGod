@@ -13,7 +13,7 @@ program
         .option('--startchallenging', "Start out challenging, instead of requiring a manual activation first.")
 	.parse(process.argv);
 
-var request = require('request'); // Used for making post requests to login server
+var request = require('request'); // Used for making post << >battles to login server
 var util = require('./util');
 var fs = require('fs');
 
@@ -149,8 +149,6 @@ function removeRoom(id) {
 // Code to execute once we have succesfully authenticated
 function onLogin() {
     //do nothing
-
-
 }
 
 function searchBattle() {
@@ -272,6 +270,7 @@ if(client) {
 	});
 
 	client.on('data', function(msg) {
+		console.log("AIFJAPOSDIJFA;OEWIJFA;OSIDJFA'OIWEJ;AFDJSF")
 		recieve(msg);
 	});
 

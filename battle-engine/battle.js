@@ -2358,6 +2358,8 @@ Battle = (function () {
 					// parse a one-based move index
 					var moveIndex = parseInt(data, 10) - 1;
 					if (!requestMoves[moveIndex]) {
+						console.log("Movesz");
+						console.log(requestMoves);
 						this.debug("Can't use an unexpected move");
 						return false;
 					}

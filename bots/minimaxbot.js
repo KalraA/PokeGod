@@ -23,6 +23,8 @@ var VOLATILES = ["substitute", 'confusion', 'leechseed', 'infestation'];
 var STATUSES = ["psn", "tox", "slp", "brn", "frz", "par"];
 var BOOSTS = ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion'];
 
+console.log(BATTLE_FEATURES);
+
 _.each(SIDE_CONDITIONS, function(condition) {
     BATTLE_FEATURES.push("p1_" + condition);
     BATTLE_FEATURES.push("p2_" + condition);
@@ -261,20 +263,22 @@ var weights = require("./../weights.js");
 
 //TODO: Eval function needs to be made 1000x better
 function eval(battle) {
-    var value = 0;
-    var features = getFeatures(battle);
+    // var value = 0;
+    // console.log("WaveyDavey");
+    // console.log(battle.p1.pokemon);
+    // var features = getFeatures(battle);
 
-    if(program.net === "none") {
-        for (var key in weights) {
-            if(key in features) value += weights[key] * features[key];
-        }
-    } else if (program.net === "update" || program.net === "use") {
-        var vec = featureVector(battle);
-        value = net.forward(vec).w[0];
-    }
+    // if(program.net === "none") {
+    //     for (var key in weights) {
+    //         if(key in features) value += weights[key] * features[key];
+    //     }
+    // } else if (program.net === "update" || program.net === "use") {
+    //     var vec = featureVector(battle);
+    //     value = net.forward(vec).w[0];
+    // }
 
-    logger.trace(JSON.stringify(features) + ": " + value);
-    return value;
+    // logger.trace(JSON.stringify(features) + ": " + value);
+    return randombot.eval(battle);
 }
 
 var overallMinNode = {};
@@ -283,7 +287,7 @@ var decide = module.exports.decide = function(battle, choices) {
     var startTime = new Date();
     battle.start();
 
-    var MAX_DEPTH = 2; //for now...
+    var MAX_DEPTH = 1; //for now...
     var maxNode = playerTurn(battle, MAX_DEPTH, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, choices);
     if(!maxNode.action) return randombot.decide(battle, choices);
     logger.info("My action: " + maxNode.action.type + " " + maxNode.action.id);

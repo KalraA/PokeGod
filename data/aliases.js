@@ -5,7 +5,7 @@ exports.BattleAliases = {
 	"underused": "UU",
 	"rarelyused": "RU",
 	"neverused": "NU",
-	"vgc": "VGC 2014",
+	"vgc": "VGC 2016",
 	"bh": "Balanced Hackmons",
 	"createapokemon": "CAP",
 	"cc1v1": "Challenge Cup 1vs1",

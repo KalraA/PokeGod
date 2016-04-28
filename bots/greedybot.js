@@ -17,19 +17,19 @@ var switchPriority = module.exports.switchPriority = function(battle, pokemon, p
     if(_.all(oppPokemon.getTypes(), function(type) {
         return !Tools.getImmunity(type, myPokemon.getTypes());
     })) {
-        return 5;
+        return 8;
     }
     //Incoming poke resists both of opponents' types: 4
     if(_.all(oppPokemon.getTypes(), function(type) {
         return Tools.getEffectiveness(type, myPokemon) < 0 || !Tools.getImmunity(type, myPokemon.getTypes());
     })) {
-        return 4;
+        return 7;
     }
     //Incoming poke receives neutral damage from opponent: 3
     if(_.all(oppPokemon.getTypes(), function(type) {
         return Tools.getEffectiveness(type, myPokemon) <= 0 ||!Tools.getImmunity(type, myPokemon.getTypes());
     })) {
-        return 3;
+        return 6;
     }
     //Incoming poke can deal super effective damage to opponents' pokemon: 2
     if(_.any(myPokemon.getMoves(), function(move) {
@@ -38,7 +38,7 @@ var switchPriority = module.exports.switchPriority = function(battle, pokemon, p
             (moveData.basePower > 0 || damagingMoves.indexOf(move.id) >= 0) &&
             Tools.getImmunity(moveData.type, oppPokemon.getTypes());
     })) {
-        return 2;
+        return 6;
     }
 
     //Otherwise, give 0 priority
@@ -54,24 +54,24 @@ var movePriority = module.exports.movePriority = function(battle, move, p1, p2) 
     //Light screen, reflect, or tailwind, and make sure they aren't already put up: 12
     var helpfulSideEffects = ["reflect","lightscreen","tailwind"];
     if(helpfulSideEffects.indexOf(move.id) >= 0 && !p1.getSideCondition(move.id)) {
-        return 12;
+        return 8;
     }
 
     //Entry hazard: stealth rock, spikes, toxic spikes, or sticky web: 11
     var entryHazards = ["stealthrock","spikes","toxicspikes","stickyweb"];
     if(entryHazards.indexOf(move.id) >= 0 && !p2.getSideCondition(move.id)) {
-        return 11;
+        return 8;
     }
 
     //Status effect: thunder wave, toxic, willowisp, glare, nuzzle: 10
     if(move.category === "Status" && move.status && !oppPokemon.status) {
-        return 10;
+        return 7;
     }
 
     //Recovery move: soft-boiled, recover, synthesis, moonlight, morning sun if hp is low enough: 9
     var recovery = ["softboiled", "recover", "synthesis", "moonlight", "morningsun"];
     if(recovery.indexOf(move.id) >= 0 && myPokemon.hp * 2 < myPokemon.maxhp) {
-        return 9;
+        return 7;
     }
 
     //Super effective move with STAB: 8
@@ -79,14 +79,14 @@ var movePriority = module.exports.movePriority = function(battle, move, p1, p2) 
        (moveData.basePower > 0 || damagingMoves.indexOf(move.id) >= 0) &&
        myPokemon.getTypes().indexOf(moveData.type) >= 0 &&
        Tools.getImmunity(moveData.type, oppPokemon.getTypes())) {
-        return 8;
+        return 12;
     }
 
     //Super effective move with no STAB: 7
     if(Tools.getEffectiveness(moveData, oppPokemon) > 0 &&
        (moveData.basePower > 0 || damagingMoves.indexOf(move.id) >= 0) &&
        Tools.getImmunity(moveData.type, oppPokemon.getTypes())) {
-        return 7;
+        return 9;
     }
 
     /*//If there is a super effective move, return 0 if there are good switches
@@ -102,18 +102,18 @@ var movePriority = module.exports.movePriority = function(battle, move, p1, p2) 
        (moveData.basePower > 0 || damagingMoves.indexOf(move.id) >= 0) &&
        myPokemon.getTypes().indexOf(moveData.type) >= 0 &&
        Tools.getImmunity(moveData.type, oppPokemon.getTypes())) {
-        return 6;
+        return 9;
     }
 
     //Find normally effective move: 1
     if(Tools.getEffectiveness(moveData, oppPokemon) === 0 &&
        (moveData.basePower > 0 || damagingMoves.indexOf(move.id) >= 0) &&
        Tools.getImmunity(moveData.type, oppPokemon.getTypes())) {
-        return 1;
+        return 8;
     }
 
     //Otherwise, give 0 priority
-    return 0;
+    return 1;
 
 };
 

@@ -1,3 +1,5 @@
+//Trying to see if I can just make a bat.
+
 // Class libary
 JS = require('jsclass');
 JS.require('JS.Class');
@@ -31,8 +33,9 @@ var clone = require("./clone");
 
 var program = require('commander'); // Get Command-line arguments
 
-var BattleRoom = new JS.Class({
-    initialize: function(id, sendfunc) {
+
+var FakeRoom = new JS.Class({
+    initialize: function(id, sendfunc, poke1, poke2) {
         this.id = id;
         this.title = "Untitled";
         this.send = sendfunc;
@@ -529,7 +532,6 @@ var BattleRoom = new JS.Class({
                     // Leave in two seconds
                     var battleroom = this;
                     setTimeout(function() {
-                        battleroom.send("/search randombattle")
                         battleroom.send("/leave " + battleroom.id);
                     }, 2000);
 
@@ -722,6 +724,7 @@ var BattleRoom = new JS.Class({
     },
     makeMove: function(request) {
         var room = this;
+
         setTimeout(function() {
             if(program.net === "update") {
                 if(room.previousState != null) minimaxbot.train_net(room.previousState, room.state);
@@ -729,10 +732,10 @@ var BattleRoom = new JS.Class({
             }
 
             var decision = BattleRoom.parseRequest(request);
+
             // Use specified algorithm to determine resulting choice
             var result = undefined;
             if(decision.choices.length == 1) result = decision.choices[0];
-            //else if (request.forceSwitch) result = decision.choices[0];
             else if(program.algorithm === "minimax") result = minimaxbot.decide(clone(room.state), decision.choices);
             else if(program.algorithm === "greedy") result = greedybot.decide(clone(room.state), decision.choices);
             else if(program.algorithm === "random") result = randombot.decide(clone(room.state), decision.choices);
@@ -792,7 +795,7 @@ var BattleRoom = new JS.Class({
         }
     }
 });
-module.exports = BattleRoom;
+module.exports = FakeRoom;
 
 var minimaxbot = require("./bots/minimaxbot");
 var greedybot = require("./bots/greedybot");
