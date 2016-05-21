@@ -20,7 +20,8 @@ BattleSide = (function () {
 		this.sideConditions = {};
 
 		this.id = n ? 'p2' : 'p1';
-
+		console.log("TYPEing")
+		console.log(this.battle.gameType)
 		switch (this.battle.gameType) {
 		case 'doubles':
 			this.active = [null, null];

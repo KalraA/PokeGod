@@ -74,7 +74,7 @@ Battle = (function () {
 		this.effectData = {id:''};
 		this.event = {id:''};
 
-		this.gameType = (format.gameType || 'singles');
+		this.gameType = (format.gameType || 'doubles');
 
 		this.queue = [];
 		this.faintQueue = [];

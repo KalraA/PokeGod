@@ -70,7 +70,7 @@ function sim1v1(battle) {
 		return false;
 	});
 	//Get My Moves
-	var aChoices = _.reject(BattleRoom.parseRequest(battle.p1.request).choices, function(c) {
+	var aChoices = _.reject(BattleRoom.parseRequest(battle.t).choices, function(c) {
 		if(c.type == "switch") return true;
 		return false;
 	});
@@ -428,6 +428,8 @@ var evaluate = function(battle, choices) {
 
 var decide = module.exports.decide = function(battle, choices) {
 	battle.start();
+	// console.log("RAYMOND3")
+ //    console.log(battle.p1.active.length);
 	//if (choices[0].type == "switch") return choices[0];
 	// for (var p = 0; p < 6; p++) {
 	// 	if (!isNaN(battle.p2.pokemon[p].hp)) {
@@ -443,29 +445,29 @@ var decide = module.exports.decide = function(battle, choices) {
 	// 	}
 	// }
 	// sim1v1(battle);
-	var bestMove = choices[0];
-	var bestScore = -100000;
-	for (var i = 0; i < choices.length; i++) {
-		var newbattle = clone(battle);
-		if (!newbattle.p2.wait) {
-			var opmove = findBestMoveOp(newbattle, oppMove(newbattle, 10), newbattle.p1.active[0].name, newbattle.p2.active[0].name);		
-			opmove = opmove.move;
-			console.log("HAPPING BRO");
-			console.log(opmove);
-			newbattle.choose('p2', BattleRoom.toChoiceString(opmove, newbattle.p2), newbattle.rqid);
-			newbattle.p2.decision = true;
-		}
-		newbattle.choose('p1', BattleRoom.toChoiceString(choices[i], newbattle.p1), newbattle.rqid);
-		newbattle.p1.decision = true;
-		var score = evaluate(newbattle, playerMove(battle, 10));
-		console.log("HERE IS MY STUFF");
-		console.log(choices[i]);
-		console.log(score);
-		if (score > bestScore) {
-			bestMove = choices[i];
-			bestScore = score;
-		}
-	}
+	// var bestMove = choices[0];
+	// var bestScore = -100000;
+	// for (var i = 0; i < choices.length; i++) {
+	// 	var newbattle = clone(battle);
+	// 	if (!newbattle.p2.wait) {
+	// 		var opmove = findBestMoveOp(newbattle, oppMove(newbattle, 10), newbattle.p1.active[0].name, newbattle.p2.active[0].name);		
+	// 		opmove = opmove.move;
+	// 		console.log("HAPPING BRO");
+	// 		console.log(opmove);
+	// 		newbattle.choose('p2', BattleRoom.toChoiceString(opmove, newbattle.p2), newbattle.rqid);
+	// 		newbattle.p2.decision = true;
+	// 	}
+	// 	newbattle.choose('p1', BattleRoom.toChoiceString(choices[i], newbattle.p1), newbattle.rqid);
+	// 	newbattle.p1.decision = true;
+	// 	var score = evaluate(newbattle, playerMove(battle, 10));
+	// 	console.log("HERE IS MY STUFF");
+	// 	console.log(choices[i]);
+	// 	console.log(score);
+	// 	if (score > bestScore) {
+	// 		bestMove = choices[i];
+	// 		bestScore = score;
+	// 	}
+	// }
 	// // console.log("EVALLED THE THING")
 	// var scr = evaluate(battle, choices);
 	// var bob = findBestMoveMe(battle, choices, battle.p1.active[0].name, battle.p2.active[0].name);
@@ -480,6 +482,6 @@ var decide = module.exports.decide = function(battle, choices) {
 	// var beeb = calcPotentialDamage(battle, choices, 2);
 	// console.log("POT DAMAGE TIME");
 	// console.log(beeb);
-	return bestMove;
+	return choices[0];
     // return monteCarlo(choices, battle);
 };

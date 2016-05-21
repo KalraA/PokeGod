@@ -705,16 +705,17 @@ var BattleRoom = new JS.Class({
             // Keep old volatiles
             this.state.p1.pokemon[i].volatiles = oldPokemon.volatiles;
 
-            if (pokemon.active) {
-                this.state.p1.active = [this.state.p1.pokemon[i]];
-                this.state.p1.pokemon[i].isActive = true;
-            }
+            // if (pokemon.active) {
+            //     this.state.p1.active = this.state.p1.active + [this.state.p1.pokemon[i]];
+            //     this.state.p1.pokemon[i].isActive = true;
+            // }
 
             // TODO(rameshvarun): Somehow parse / load in current hp and status conditions
         }
-
         // Enforce that the active pokemon is in the first slot
         this.state.p1.pokemon = _.sortBy(this.state.p1.pokemon, function(pokemon) { return pokemon.isActive ? 0 : 1 });
+        
+        this.state.p1.active = [this.state.p1.pokemon[0], this.state.p1.pokemon[1]];
 
         this.side = sideData.id;
         this.oppSide = (this.side === "p1") ? "p2" : "p1";
