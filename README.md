@@ -1,5 +1,11 @@
-Percymon: A Pokemon Showdown AI
+Percymon: A Pokemon Showdown AI (I stole this from another dude and changed the AI)
 ===========
+
+My bot is called randombot
+
+Uses a Monte-Carlo Minimax (my own algorithm) to play pokemon. Is one of the highest rated AI's out there! But I only know of one other AI.
+
+run node bot.js --algorithm 'random'
 
 ![Imgur](http://i.imgur.com/uasrTOy.png)
 
